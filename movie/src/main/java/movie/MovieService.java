@@ -25,8 +25,9 @@ public class MovieService {
     public Movie getLatestMovie() {
         return movies.stream()
                 .sorted(Comparator.comparing(Movie::getReleaseDate).reversed())
-                .limit(1)  // van olyan, hogy findFirst()
-                .findAny()
+//                .limit(1)  // van olyan, hogy findFirst()
+//                .findAny()
+                .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Nincs ilyen elem!"));
     }
 
