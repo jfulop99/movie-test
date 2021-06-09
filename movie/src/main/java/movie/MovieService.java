@@ -1,6 +1,8 @@
 package movie;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class MovieService {
@@ -16,7 +18,11 @@ public class MovieService {
     }
 
     public Movie getLatestMovie() {
-        movies.stream().sorted(m->m.getReleaseDate())
+        return movies.stream()
+                .sorted(Comparator.comparing(Movie::getReleaseDate).reversed())
+                .limit(1)
+                .findAny()
+                .orElseThrow(() -> new NoSuchElementException("Nincs ilyen elem!"));
     }
 
     public List <Movie> getMovieByName(String name) {
